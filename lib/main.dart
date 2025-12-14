@@ -6,11 +6,18 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
 void main() async {
-  Loggy.initLoggy(logPrinter: const PrettyDeveloperPrinter());
+  Loggy.initLoggy(
+    logPrinter: const PrettyDeveloperPrinter(),
+  );
 
   final container = ProviderContainer();
 
-  runApp(UncontrolledProviderScope(container: container, child: App()));
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: App(),
+    ),
+  );
   logInfo('App up and running');
 }
 
@@ -47,9 +54,13 @@ class App extends HookConsumerWidget with UiLoggy {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: .fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(
+        title: 'Flutter Demo Home Page',
+      ),
     );
   }
 }
@@ -100,7 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(
+          context,
+        ).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -127,10 +140,15 @@ class _MyHomePageState extends State<MyHomePage> {
             Text(
               'You have pushed the button this many times:',
               style: textTheme.headlineSmall?.copyWith(
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(
+                  context,
+                ).colorScheme.secondary,
               ),
             ),
-            Text('$_counter', style: textTheme.headlineMedium),
+            Text(
+              '$_counter',
+              style: textTheme.headlineMedium,
+            ),
           ],
         ),
       ),

@@ -1,20 +1,31 @@
-import 'package:canya/main.dart';
+import 'package:canya/features/auth/presentation/sign_in_screen.dart';
+import 'package:canya/features/landing/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum AppRoute {
-  signIn,
-  home
-}
+enum AppRoute { signIn, home }
 
-final routerConfig  = GoRouter(
+final routerConfig = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
-      path: '/', name: AppRoute.home.name,
-      pageBuilder: (_, state) =>
-          MaterialPage(child: MyHomePage(title: "CanYa"), key: state.pageKey,
-              fullscreenDialog: true)
-    )
-  ]
+      path: '/',
+      name: AppRoute.home.name,
+      pageBuilder: (_, state) => MaterialPage(
+        child: LandingScreen(),
+        key: state.pageKey,
+        fullscreenDialog: true,
+      ),
+    ),
+
+    GoRoute(
+      path: '/signIn',
+      name: AppRoute.signIn.name,
+      pageBuilder: (_, state) => MaterialPage(
+        key: state.pageKey,
+        fullscreenDialog: true,
+        child: SignInScreen(),
+      ),
+    ),
+  ],
 );
