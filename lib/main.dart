@@ -1,15 +1,34 @@
+import 'package:canya/common/routing/router.dart';
+import 'package:canya/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_loggy/flutter_loggy.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:loggy/loggy.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  Loggy.initLoggy(logPrinter: const PrettyDeveloperPrinter());
+
+  final container = ProviderContainer();
+
+  runApp(UncontrolledProviderScope(container: container, child: App()));
+  logInfo('App up and running');
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends HookConsumerWidget with UiLoggy {
+  const App({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: routerConfig,
+      theme: ThemeData.from(colorScheme: lightColorScheme),
+      darkTheme: ThemeData.from(
+        colorScheme: darkColorScheme,
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.dark,
+    );
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -69,6 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -104,11 +124,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              'You have pushed the button this many times:',
+              style: textTheme.headlineSmall?.copyWith(
+                color: Theme.of(context).colorScheme.secondary,
+              ),
             ),
+            Text('$_counter', style: textTheme.headlineMedium),
           ],
         ),
       ),
