@@ -1,15 +1,41 @@
+import 'package:canya/common/routing/router.dart';
+import 'package:canya/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_loggy/flutter_loggy.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:loggy/loggy.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  Loggy.initLoggy(
+    logPrinter: const PrettyDeveloperPrinter(),
+  );
+
+  final container = ProviderContainer();
+
+  runApp(
+    UncontrolledProviderScope(
+      container: container,
+      child: App(),
+    ),
+  );
+  logInfo('App up and running');
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends HookConsumerWidget with UiLoggy {
+  const App({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    return MaterialApp.router(
+      routerConfig: routerConfig,
+      theme: ThemeData.from(colorScheme: lightColorScheme),
+      darkTheme: ThemeData.from(
+        colorScheme: darkColorScheme,
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.dark,
+    );
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -28,9 +54,13 @@ class MyApp extends StatelessWidget {
         //
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: .fromSeed(
+          seedColor: Colors.deepPurple,
+        ),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(
+        title: 'Flutter Demo Home Page',
+      ),
     );
   }
 }
@@ -69,6 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -80,7 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme.of(
+          context,
+        ).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -104,10 +137,17 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
+            Text(
+              'You have pushed the button this many times:',
+              style: textTheme.headlineSmall?.copyWith(
+                color: Theme.of(
+                  context,
+                ).colorScheme.secondary,
+              ),
+            ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: textTheme.headlineMedium,
             ),
           ],
         ),
