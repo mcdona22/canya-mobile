@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'features/theme/theme_toggle_button.dart';
+
 PreferredSizeWidget createAppBar(
   BuildContext context,
   String title,
@@ -12,5 +14,6 @@ PreferredSizeWidget createAppBar(
     // backgroundColor: Theme.of(
     //   context,
     // ).colorScheme.inversePrimary,
+    actions: [ThemeToggleButton()],
   );
 }

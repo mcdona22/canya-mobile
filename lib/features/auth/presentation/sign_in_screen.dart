@@ -17,7 +17,6 @@ class SignInScreen extends HookConsumerWidget with UiLoggy {
     const buttonHeight = 50.0;
     const buttonWidth = 300.0;
     const maxWidth = 700.0;
-    loggy.debug('Sign In Screen presented');
     return Scaffold(
       appBar: createAppBar(context, 'Sign In'),
       body: Padding(
