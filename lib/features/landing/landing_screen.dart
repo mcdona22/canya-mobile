@@ -21,8 +21,32 @@ class LandingScreen extends HookConsumerWidget
             mainAxisAlignment:
                 MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: 40.0,
+            // spacing: 10.0,
             children: [
+              SizedBox.square(
+                dimension: 500.0,
+                child: Image.asset(
+                  'assets/images/canya-logo.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+              // ScreenBannerImage(
+              //   imagePath: 'assets/images/canya-logo.png',
+              //   height: 300.0,
+              // ),
+              Text(
+                'Propose Share Decide',
+                textAlign: TextAlign.center,
+                style: Theme.of(context)
+                    .textTheme
+                    .displaySmall
+                    ?.copyWith(
+                      letterSpacing: 2.0,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primaryFixedDim,
+                    ),
+              ),
               OutlinedButton(
                 onPressed: () =>
                     context.goNamed(AppRoute.signIn.name),
