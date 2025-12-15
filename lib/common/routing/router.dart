@@ -6,7 +6,8 @@ import 'package:go_router/go_router.dart';
 enum AppRoute { signIn, home }
 
 final routerConfig = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/signIn',
+  debugLogDiagnostics: true,
   routes: [
     GoRoute(
       path: '/',
