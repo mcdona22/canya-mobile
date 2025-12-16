@@ -16,6 +16,14 @@ void main() async {
   final container = ProviderContainer();
   await container.read(brightnessProvider.future);
 
+  // final canya = Canya(
+  //   name: 'JRM',
+  //   ownerId: 'jrm',
+  //   description: 'This is my description',
+  // );
+  //
+  // logInfo('Canya Created', canya);
+
   runApp(
     UncontrolledProviderScope(
       container: container,
