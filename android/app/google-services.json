@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "962669561151",
+    "project_id": "canya-prod",
+    "storage_bucket": "canya-prod.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962669561151:android:582245ce837ddf63093f8a",
+        "android_client_info": {
+          "package_name": "com.mcdona22.canya"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962669561151-dbm26rdm5t6k757uvme360da7lvov85v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO7YhC6NEL-m105s04O3S3lu7I4504sEc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962669561151-dbm26rdm5t6k757uvme360da7lvov85v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
