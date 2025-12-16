@@ -47,10 +47,21 @@ class LandingScreen extends HookConsumerWidget
                       ).colorScheme.primaryFixedDim,
                     ),
               ),
-              OutlinedButton(
-                onPressed: () =>
-                    context.goNamed(AppRoute.signIn.name),
-                child: Text('Show Auth Screen'),
+              Column(
+                children: [
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(
+                      AppRoute.canyaList.name,
+                    ),
+                    child: Text('Canya Dashboard'),
+                  ),
+                  OutlinedButton(
+                    onPressed: () => context.goNamed(
+                      AppRoute.signIn.name,
+                    ),
+                    child: Text('Show Auth Screen'),
+                  ),
+                ],
               ),
             ],
           ),

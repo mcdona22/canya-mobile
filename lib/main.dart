@@ -6,6 +6,8 @@ import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
+import 'features/canya/data/canya.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -16,13 +18,14 @@ void main() async {
   final container = ProviderContainer();
   await container.read(brightnessProvider.future);
 
-  // final canya = Canya(
-  //   name: 'JRM',
-  //   ownerId: 'jrm',
-  //   description: 'This is my description',
-  // );
-  //
-  // logInfo('Canya Created', canya);
+  final canya = Canya(
+    name: 'JRM',
+    ownerId: 'jrm',
+    description: 'This is my description',
+  );
+
+  logInfo('Canya Created', canya);
+  logInfo('Canya JSON', canya.toJson());
 
   runApp(
     UncontrolledProviderScope(
