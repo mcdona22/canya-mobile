@@ -1,9 +1,10 @@
 import 'package:canya/features/auth/presentation/sign_in_screen.dart';
+import 'package:canya/features/canya/presentation/canya_summary_screen.dart';
 import 'package:canya/features/landing/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum AppRoute { signIn, home }
+enum AppRoute { signIn, home, canya }
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -26,6 +27,15 @@ final routerConfig = GoRouter(
         key: state.pageKey,
         fullscreenDialog: true,
         child: SignInScreen(),
+      ),
+    ),
+    GoRoute(
+      path: '/canya',
+      name: AppRoute.canya.name,
+      pageBuilder: (_, state) => MaterialPage(
+        key: state.pageKey,
+        fullscreenDialog: true,
+        child: CanyaSummaryScreen(),
       ),
     ),
   ],

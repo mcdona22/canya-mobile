@@ -1,3 +1,4 @@
+import 'package:canya/common/dimensions.dart';
 import 'package:canya/common/routing/router.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
@@ -18,22 +19,11 @@ class LandingScreen extends HookConsumerWidget
           padding: EdgeInsets.all(12.0),
           width: double.infinity,
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceAround,
+            // mainAxisAlignment:
+            //     MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             // spacing: 10.0,
             children: [
-              SizedBox.square(
-                dimension: 500.0,
-                child: Image.asset(
-                  'assets/images/canya-logo.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              // ScreenBannerImage(
-              //   imagePath: 'assets/images/canya-logo.png',
-              //   height: 300.0,
-              // ),
               Text(
                 'Propose Share Decide',
                 textAlign: TextAlign.center,
@@ -47,10 +37,38 @@ class LandingScreen extends HookConsumerWidget
                       ).colorScheme.primaryFixedDim,
                     ),
               ),
-              OutlinedButton(
-                onPressed: () =>
-                    context.goNamed(AppRoute.signIn.name),
-                child: Text('Show Auth Screen'),
+              SizedBox.square(
+                dimension: 300.0,
+                child: Image.asset(
+                  'assets/images/canya-logo.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+
+              Column(
+                spacing: 20.0,
+                children: [
+                  SizedBox(
+                    height: kButtonHeight,
+                    width: kButtonWidth,
+                    child: OutlinedButton(
+                      onPressed: () => context.goNamed(
+                        AppRoute.signIn.name,
+                      ),
+                      child: Text('Show Auth Screen'),
+                    ),
+                  ),
+                  SizedBox(
+                    height: kButtonHeight,
+                    width: kButtonWidth,
+                    child: OutlinedButton(
+                      onPressed: () => context.goNamed(
+                        AppRoute.canya.name,
+                      ),
+                      child: Text('Canya Dashboard'),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),

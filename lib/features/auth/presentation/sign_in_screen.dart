@@ -1,3 +1,4 @@
+import 'package:canya/common/dimensions.dart';
 import 'package:canya/common/presentation/screen_banner_image.dart';
 import 'package:canya/features/auth/presentation/social_media_button.dart';
 import 'package:canya/util.dart';
@@ -45,27 +46,27 @@ class SignInScreen extends HookConsumerWidget with UiLoggy {
                     ).textTheme.titleLarge,
                   ),
                   SizedBox(
-                    height: buttonHeight,
-                    width: buttonWidth,
+                    height: kButtonHeight,
+                    width: kButtonWidth,
                     child: SocialMediaButton(
                       label: 'Sign in with Google',
                       imagePath: 'assets/images/google.png',
                       // onPressed: () {},
                     ),
                   ),
-                  SizedBox(
-                    height: buttonHeight,
-                    width: buttonWidth,
-                    child: SocialMediaButton(
-                      label: 'Sign in with Apple',
-                      imagePath: 'assets/images/apple.png',
-                      // onPressed: null,
-                    ),
-                  ),
 
+                  // SizedBox(
+                  //   height: buttonHeight,
+                  //   width: buttonWidth,
+                  //   child: SocialMediaButton(
+                  //     label: 'Sign in with Apple',
+                  //     imagePath: 'assets/images/apple.png',
+                  //     // onPressed: null,
+                  //   ),
+                  // ),
                   SizedBox(
-                    height: buttonHeight,
-                    width: buttonWidth,
+                    height: kButtonHeight,
+                    width: kButtonWidth,
                     child: SocialMediaButton(
                       label: 'Sign In with Facebook',
                       imagePath:
