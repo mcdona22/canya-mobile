@@ -2,11 +2,8 @@ import 'package:canya/common/presentation/screen_banner_image.dart';
 import 'package:canya/features/auth/presentation/social_media_button.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
-
-import '../../../common/routing/router.dart';
 
 class SignInScreen extends HookConsumerWidget with UiLoggy {
   const SignInScreen({super.key});
@@ -74,16 +71,6 @@ class SignInScreen extends HookConsumerWidget with UiLoggy {
                       imagePath:
                           'assets/images/facebook.png',
                       // onPressed: () {},
-                    ),
-                  ),
-                  SizedBox(
-                    height: buttonHeight,
-                    width: buttonWidth,
-                    child: ElevatedButton(
-                      onPressed: () => context.goNamed(
-                        AppRoute.home.name,
-                      ),
-                      child: Text('Home'),
                     ),
                   ),
                 ],
