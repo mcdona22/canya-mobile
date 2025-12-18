@@ -1,3 +1,4 @@
+import 'package:canya/common/presentation/form_items.dart';
 import 'package:canya/features/canya/data/canya_event.dart';
 import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,22 +22,27 @@ class CanyaFormController extends _$CanyaFormController
     ref.onDispose(_dispose);
   }
 
-  void onSubmit() async {
+  void onSubmit(
+    ControllerOutcomeCallBack onSuccess,
+    ControllerOutcomeCallBack onError,
+  ) async {
     try {
       state = AsyncLoading();
-      loggy.info('Name: ${nameTextController.text}');
-      loggy.info('Desc: ${descTextController.text}');
       final ce = CanyaEvent(
         name: nameTextController.text,
         description: descTextController.text,
       );
       await canyaService.addCanya(ce);
       loggy.debug('Created', ce.toMap());
+      onSuccess(
+        'The Canya for "${ce.name}" has been created',
+      );
     } catch (error) {
       loggy.error('Hmm');
+      onError("something went wrong $error");
       rethrow;
     } finally {
-      await Future.delayed(const Duration(seconds: 2));
+      // await Future.delayed(const Duration(seconds: 2));
       state = AsyncData(null);
     }
   }

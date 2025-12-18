@@ -5,7 +5,14 @@ import 'package:canya/features/landing/landing_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-enum AppRoute { signIn, home, canya, canyaNew, canyaEdit }
+enum AppRoute {
+  signIn,
+  home,
+  canya,
+  canyaNew,
+  canyaEdit,
+  canyaDetail,
+}
 
 final routerConfig = GoRouter(
   initialLocation: '/',
@@ -42,6 +49,16 @@ final routerConfig = GoRouter(
     GoRoute(
       path: '/canya/new',
       name: AppRoute.canyaNew.name,
+      pageBuilder: (_, state) => MaterialPage(
+        key: state.pageKey,
+        fullscreenDialog: true,
+        child: CanyaNewScreen(),
+      ),
+    ),
+
+    GoRoute(
+      path: '/canya/:id',
+      name: AppRoute.canyaDetail.name,
       pageBuilder: (_, state) => MaterialPage(
         key: state.pageKey,
         fullscreenDialog: true,

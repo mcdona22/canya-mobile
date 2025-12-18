@@ -8,8 +8,8 @@ part 'canya_service.g.dart';
 
 @riverpod
 CanyaService canyaService(Ref ref) {
-  ref.onDispose(() => logDebug('disposing CanyaService'));
-  ref.onResume(() => logDebug('resuming CanyaService'));
+  // ref.onDispose(() => logDebug('disposing CanyaService'));
+
   return CanyaService(
     canyaRepository: ref.watch(canyaRepositoryProvider),
   );

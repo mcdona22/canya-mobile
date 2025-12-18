@@ -1,4 +1,5 @@
 import 'package:canya/common/routing/router.dart';
+import 'package:canya/features/canya/data/canya_event.dart';
 import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
@@ -12,18 +13,10 @@ class CanyaSummaryScreen extends HookConsumerWidget
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // final client = ref.watch(supabaseClientProvider);
-    // final future = client.from('canya_event').select();
-    // // final repository = ref.watch(canyaRepositoryProvider);
-    // //
-    // future.then((data) => loggy.debug('All Canyas', data));
-    final accentColor = Theme.of(
-      context,
-    ).colorScheme.secondaryFixed;
     final asyncValue = ref.watch(fetchAllCanyasProvider);
 
     // future.then((data) => loggy.debug('Data', data));
-
+    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: createAppBar(context, 'CanYa Summary'),
       body: Padding(
@@ -31,34 +24,24 @@ class CanyaSummaryScreen extends HookConsumerWidget
           horizontal: 18.0,
         ),
         child: asyncValue.when(
-          data: (data) => ListView.builder(
-            itemBuilder: (_, i) => Padding(
-              padding: const EdgeInsets.symmetric(
-                vertical: 8.0,
-              ),
-              child: ListTile(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  side: BorderSide(color: accentColor),
+          data: (data) => data.isEmpty
+              ? Center(
+                  child: Text(
+                    'There are no CanYas at the moment - '
+                    'create one?',
+                    textAlign: TextAlign.center,
+                    style: textTheme.titleLarge,
+                  ),
+                )
+              : ListView.builder(
+                  itemBuilder: (_, i) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                    ),
+                    child: CanyaSummaryTile(canya: data[i]),
+                  ),
+                  itemCount: data.length,
                 ),
-                leading: Icon(
-                  Icons.calendar_month,
-                  color: Colors.orange,
-                  size: 38.0,
-                ),
-                title: Text(data[i].name),
-                subtitle: Column(
-                  crossAxisAlignment:
-                      CrossAxisAlignment.start,
-                  children: [
-                    Text(data[i].description ?? ''),
-                    Text(data[i].id ?? ''),
-                  ],
-                ),
-              ),
-            ),
-            itemCount: data.length,
-          ),
           loading: () =>
               Center(child: CircularProgressIndicator()),
           error: (err, stack) => Text('$err'),
@@ -79,5 +62,43 @@ class CanyaSummaryScreen extends HookConsumerWidget
         child: Icon(Icons.add),
       ),
     );
+  }
+}
+
+class CanyaSummaryTile extends HookConsumerWidget
+    with UiLoggy {
+  const CanyaSummaryTile({required this.canya, super.key});
+
+  final CanyaEvent canya;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final color = Theme.of(context).colorScheme.primary;
+    return ListTile(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: BorderSide(color: color),
+      ),
+      leading: Icon(
+        Icons.calendar_month,
+        color: color,
+        size: 38.0,
+      ),
+      trailing: TextButton(
+        onPressed: () =>
+            _navigateToDetail(context, canya.id!),
+        child: Text('View'),
+      ),
+
+      title: Text(canya.name),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [Text(canya.description ?? '')],
+      ),
+    );
+  }
+
+  void _navigateToDetail(BuildContext context, String id) {
+    loggy.info('Lets go', id);
   }
 }

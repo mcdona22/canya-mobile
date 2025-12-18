@@ -1,11 +1,13 @@
 import 'package:canya/common/dimensions.dart';
 import 'package:canya/common/presentation/centred_constrained_widget.dart';
 import 'package:canya/common/presentation/form_items.dart';
+import 'package:canya/common/routing/router.dart';
 import 'package:canya/features/canya/presentation/canya_form_controller.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_validator/form_validator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
@@ -76,7 +78,16 @@ class CanyaEventForm extends HookConsumerWidget
               : ElevatedButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      controller.onSubmit();
+                      controller.onSubmit(
+                        ((message) => _onSuccess(
+                          context,
+                          message ?? '',
+                        )),
+                        ((message) => _onFailure(
+                          context,
+                          message ?? '',
+                        )),
+                      );
                     } else {
                       loggy.debug('invalid');
                     }
@@ -86,5 +97,15 @@ class CanyaEventForm extends HookConsumerWidget
         ],
       ),
     );
+  }
+
+  void _onSuccess(BuildContext context, String msg) {
+    loggy.debug(msg);
+    context.goNamed(AppRoute.canya.name);
+  }
+
+  void _onFailure(BuildContext context, String msg) {
+    loggy.debug(msg);
+    // context.goNamed(AppRoute.canya.name);
   }
 }

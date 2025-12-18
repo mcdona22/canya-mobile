@@ -29,7 +29,7 @@ class BrightnessNotifier extends _$BrightnessNotifier
     return _themeMode;
   }
 
-  toggleTheme() {
+  void toggleTheme() {
     loggy.debug('Toggling theme');
     _themeMode = _themeMode == ThemeMode.light
         ? ThemeMode.dark
