@@ -1,6 +1,8 @@
-import 'package:canya/features/canya/data/canya_repository.dart';
+import 'package:canya/common/routing/router.dart';
+import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
@@ -45,7 +47,14 @@ class CanyaSummaryScreen extends HookConsumerWidget
                   size: 38.0,
                 ),
                 title: Text(data[i].name),
-                subtitle: Text(data[i].description ?? ''),
+                subtitle: Column(
+                  crossAxisAlignment:
+                      CrossAxisAlignment.start,
+                  children: [
+                    Text(data[i].description ?? ''),
+                    Text(data[i].id ?? ''),
+                  ],
+                ),
               ),
             ),
             itemCount: data.length,
@@ -53,6 +62,20 @@ class CanyaSummaryScreen extends HookConsumerWidget
           loading: () => CircularProgressIndicator(),
           error: (err, stack) => Text('$err'),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            context.goNamed(AppRoute.canyaNew.name),
+        // onPressed: () {
+        //   final faker = Faker();
+        //   ref
+        //       .read(canyaServiceProvider.notifier)
+        //       .addCanya(
+        //         name: faker.company.name(),
+        //         description: faker.company.person.name(),
+        //       );
+        // },
+        child: Icon(Icons.add),
       ),
     );
   }

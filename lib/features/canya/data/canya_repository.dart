@@ -35,7 +35,3 @@ class CanyaRepository with UiLoggy {
     return response;
   }
 }
-
-@Riverpod()
-Stream<List<CanyaEvent>> fetchAllCanyas(Ref ref) =>
-    ref.watch(canyaRepositoryProvider).fetchAll();
