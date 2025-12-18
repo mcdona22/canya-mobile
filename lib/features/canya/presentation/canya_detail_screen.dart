@@ -5,13 +5,17 @@ import 'package:loggy/loggy.dart';
 
 class CanyaDetailScreen extends HookConsumerWidget
     with UiLoggy {
-  const CanyaDetailScreen({super.key});
+  final String id;
+
+  const CanyaDetailScreen({required this.id, super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: createAppBar(context, 'CanYa Detail'),
-      body: const Center(child: Text('Under Construction')),
+      body: Center(
+        child: Text('Under  Construction:  : $id'),
+      ),
     );
   }
 }

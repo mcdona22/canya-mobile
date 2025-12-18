@@ -1,4 +1,5 @@
 import 'package:canya/features/auth/presentation/sign_in_screen.dart';
+import 'package:canya/features/canya/presentation/canya_detail_screen.dart';
 import 'package:canya/features/canya/presentation/canya_new_screen.dart';
 import 'package:canya/features/canya/presentation/canya_summary_screen.dart';
 import 'package:canya/features/landing/landing_screen.dart';
@@ -62,7 +63,9 @@ final routerConfig = GoRouter(
       pageBuilder: (_, state) => MaterialPage(
         key: state.pageKey,
         fullscreenDialog: true,
-        child: CanyaNewScreen(),
+        child: CanyaDetailScreen(
+          id: state.pathParameters['id']!,
+        ),
       ),
     ),
   ],

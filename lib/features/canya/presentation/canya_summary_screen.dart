@@ -100,5 +100,9 @@ class CanyaSummaryTile extends HookConsumerWidget
 
   void _navigateToDetail(BuildContext context, String id) {
     loggy.info('Lets go', id);
+    context.goNamed(
+      AppRoute.canyaDetail.name,
+      pathParameters: {'id': id},
+    );
   }
 }
