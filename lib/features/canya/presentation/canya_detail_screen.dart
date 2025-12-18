@@ -66,7 +66,10 @@ class CanyaDetailView extends HookConsumerWidget
                 textAlign: TextAlign.center,
               ),
               if (canya.description != null)
-                Text(canya.description!),
+                Text(
+                  canya.description!,
+                  textAlign: TextAlign.center,
+                ),
               // Divider(endIndent: 20.0, indent: 20.0),
             ],
           ),
