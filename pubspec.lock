@@ -343,7 +343,7 @@ packages:
     source: hosted
     version: "3.4.1"
   flutter_hooks:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_hooks
       sha256: "8ae1f090e5f4ef5cfa6670ce1ab5dddadd33f3533a7f9ba19d9f958aa2a89f42"
@@ -384,6 +384,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  form_validator:
+    dependency: "direct main"
+    description:
+      name: form_validator
+      sha256: "8cbe91b7d5260870d6fb9e23acd55d5d1d1fdf2397f0279a4931ac3c0c7bf8fb"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.1"
   freezed_annotation:
     dependency: transitive
     description:

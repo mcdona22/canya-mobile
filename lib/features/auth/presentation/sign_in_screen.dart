@@ -55,15 +55,6 @@ class SignInScreen extends HookConsumerWidget with UiLoggy {
                     ),
                   ),
 
-                  // SizedBox(
-                  //   height: buttonHeight,
-                  //   width: buttonWidth,
-                  //   child: SocialMediaButton(
-                  //     label: 'Sign in with Apple',
-                  //     imagePath: 'assets/images/apple.png',
-                  //     // onPressed: null,
-                  //   ),
-                  // ),
                   SizedBox(
                     height: kButtonHeight,
                     width: kButtonWidth,

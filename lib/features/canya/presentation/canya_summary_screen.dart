@@ -59,7 +59,8 @@ class CanyaSummaryScreen extends HookConsumerWidget
             ),
             itemCount: data.length,
           ),
-          loading: () => CircularProgressIndicator(),
+          loading: () =>
+              Center(child: CircularProgressIndicator()),
           error: (err, stack) => Text('$err'),
         ),
       ),
