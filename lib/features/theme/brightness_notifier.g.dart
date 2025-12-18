@@ -75,7 +75,7 @@ final class BrightnessNotifierProvider
 }
 
 String _$brightnessNotifierHash() =>
-    r'f216308cb331011408a3c04aca73de96ce9f478c';
+    r'dba0ac37f518a18087cd5a7a4bd2d24d04d1b734';
 
 abstract class _$BrightnessNotifier extends $AsyncNotifier<ThemeMode> {
   FutureOr<ThemeMode> build();

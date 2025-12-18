@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_loggy/flutter_loggy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,6 +13,14 @@ void main() async {
   Loggy.initLoggy(
     logPrinter: const PrettyDeveloperPrinter(),
   );
+  logInfo('initialise SupaBase');
+  await Supabase.initialize(
+    url: 'https://ptygpwvxvfmqllbsakjn.supabase.co',
+    anonKey:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0eWdwd3Z4dmZtcWxsYnNha2puIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjU5MTU0MzcsImV4cCI6MjA4MTQ5MTQzN30.OALo6Wd0TDw1UwQ7xyRapyi4I9TfHV62lsT19P0BBKM',
+  );
+
+  logInfo('Create Provider Container');
 
   final container = ProviderContainer();
   await container.read(brightnessProvider.future);
