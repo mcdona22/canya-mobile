@@ -1,6 +1,5 @@
 import 'package:canya/common/dimensions.dart';
 import 'package:canya/common/presentation/async_value_widget.dart';
-import 'package:canya/common/presentation/form_items.dart';
 import 'package:canya/features/canya/data/canya_event.dart';
 import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:canya/util.dart';
@@ -50,16 +49,8 @@ class CanyaDetailView extends HookConsumerWidget
     final theme = Theme.of(context);
 
     return Card(
-      child: Container(
-        decoration: BoxDecoration(
-          // border: Border.all(
-          //   width: .75,
-          //   color: theme.colorScheme.onSurface,
-          // ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(kBorderRadius * 4),
-          ),
-        ),
+      child: SizedBox(
+        width: double.infinity,
 
         child: Padding(
           padding: const EdgeInsets.all(18.0),
