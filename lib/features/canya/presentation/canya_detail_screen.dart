@@ -63,6 +63,7 @@ class CanyaDetailView extends HookConsumerWidget
                 canya.name,
                 style: theme.textTheme.displayMedium
                     ?.copyWith(letterSpacing: 3.0),
+                textAlign: TextAlign.center,
               ),
               if (canya.description != null)
                 Text(canya.description!),
