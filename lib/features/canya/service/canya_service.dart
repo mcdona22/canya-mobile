@@ -61,3 +61,7 @@ class CanyaService with UiLoggy {
 @Riverpod()
 Stream<List<CanyaEvent>> fetchAllCanyas(Ref ref) =>
     ref.watch(canyaRepositoryProvider).fetchAll();
+
+@Riverpod()
+Stream<CanyaEvent> watchCanya(Ref ref, String id) =>
+    ref.watch(canyaRepositoryProvider).fetchById(id);

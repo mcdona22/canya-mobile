@@ -35,6 +35,21 @@ class CanyaRepository with UiLoggy {
     return response;
   }
 
+  Stream<CanyaEvent> fetchById(String id) {
+    final Stream<CanyaEvent> response = client
+        .from(tableName)
+        .stream(primaryKey: ['id'])
+        .eq('id', id)
+        .map((data) {
+          if (data.isEmpty) {
+            throw Exception('No Canya with an id of $id');
+          }
+          return CanyaEvent.fromMap(data.first);
+        });
+
+    return response;
+  }
+
   Future<void> createCanya(CanyaEvent c) async {
     try {
       final response = await client
