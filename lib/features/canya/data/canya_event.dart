@@ -10,7 +10,11 @@ class CanyaEvent {
   });
 
   Map<String, dynamic> toMap() {
-    return {'name': name, 'description': description};
+    return {
+      'id': id,
+      'name': name,
+      'description': description,
+    };
   }
 
   factory CanyaEvent.fromMap(Map<String, dynamic> map) {

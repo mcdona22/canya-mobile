@@ -59,18 +59,28 @@ class CanyaEventForm extends HookConsumerWidget
 
           TextFormField(
             controller: controller.descTextController,
+            // validator: ValidationBuilder()
+            //     .maxLength(20)
+            //     .build(),
             decoration: InputDecoration(
               labelText: 'Description',
               border: textInputBorder,
             ),
             maxLines: 8,
             minLines: 4,
+            maxLength: 100,
           ),
 
           state.isLoading
               ? CircularProgressIndicator()
               : ElevatedButton(
-                  onPressed: controller.onSubmit,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      controller.onSubmit();
+                    } else {
+                      loggy.debug('invalid');
+                    }
+                  },
                   child: Text('Save'),
                 ),
         ],

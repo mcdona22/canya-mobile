@@ -34,4 +34,16 @@ class CanyaRepository with UiLoggy {
 
     return response;
   }
+
+  Future<void> createCanya(CanyaEvent c) async {
+    try {
+      final response = await client
+          .from(tableName)
+          .insert(c.toMap()..remove('id'));
+      loggy.debug('insert response');
+    } catch (e, stack) {
+      loggy.error('Error inserting', e);
+      rethrow;
+    }
+  }
 }
