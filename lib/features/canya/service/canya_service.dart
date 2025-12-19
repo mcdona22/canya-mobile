@@ -20,43 +20,10 @@ class CanyaService with UiLoggy {
 
   CanyaService({required this.canyaRepository});
 
-  Future<void> addCanya(CanyaEvent canya) async {
+  Future<CanyaEvent> addCanya(CanyaEvent canya) async {
     return await canyaRepository.createCanya(canya);
   }
 }
-// @riverpod
-// class CanyaService extends _$CanyaService with UiLoggy {
-//   final tableName = 'canya_event';
-//
-//   late SupabaseClient client;
-//
-//   @override
-//   FutureOr<void> build() async {
-//     client = ref.watch(supabaseClientProvider);
-//
-//     ref.onDispose(
-//       () => loggy.info('Canya Service being destroyed'),
-//     );
-//     return;
-//   }
-//
-//   Future<void> addCanya({
-//     required String name,
-//     String description = '',
-//   }) async {
-//     final canya = CanyaEvent(
-//       name: name,
-//       description: description,
-//     );
-//
-//     try {
-//       await client.from(tableName).insert(canya.toMap());
-//     } catch (e, stack) {
-//       loggy.error('There has been a problem', e);
-//       rethrow;
-//     }
-//   }
-// }
 
 @Riverpod()
 Stream<List<CanyaEvent>> fetchAllCanyas(Ref ref) =>

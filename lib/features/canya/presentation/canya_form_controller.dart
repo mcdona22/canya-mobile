@@ -31,9 +31,10 @@ class CanyaFormController extends _$CanyaFormController
       final ce = CanyaEvent(
         name: nameTextController.text,
         description: descTextController.text,
+        slots: [],
       );
       await canyaService.addCanya(ce);
-      loggy.debug('Created', ce.toMap());
+      // loggy.debug('Created', ce.toMap());
       onSuccess(
         'The Canya for "${ce.name}" has been created',
       );

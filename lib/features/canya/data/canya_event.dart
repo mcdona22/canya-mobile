@@ -13,6 +13,14 @@ class CanyaEvent {
     this.slots = const [],
   });
 
+  Map<String, dynamic> toTableMap() {
+    return {
+      if (id != null) 'id': id,
+      'name': name,
+      'description': description,
+    };
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -35,5 +43,11 @@ class CanyaEvent {
       // slots: (map['slots'] as List?)
       //   ?map( (json) => Slot.fromMap(json))
     );
+  }
+
+  @override
+  String toString() {
+    return 'CanyaEvent {id: $id, name: $name, '
+        'description: $description, slots: $slots}';
   }
 }

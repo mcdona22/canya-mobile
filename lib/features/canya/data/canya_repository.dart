@@ -52,12 +52,18 @@ class CanyaRepository with UiLoggy {
     return response;
   }
 
-  Future<void> createCanya(CanyaEvent c) async {
+  Future<CanyaEvent> createCanya(CanyaEvent c) async {
     try {
+      final data = c.toTableMap();
+      loggy.info('The map being passed is : ', data);
       final response = await client
           .from(tableName)
-          .insert(c.toMap()..remove('id'));
-      loggy.debug('insert response');
+          .insert(data)
+          .select()
+          .single();
+      final canya = CanyaEvent.fromMap(response);
+      loggy.debug('Created canya', canya);
+      return canya;
     } catch (e, stack) {
       loggy.error('Error inserting', e);
       rethrow;
