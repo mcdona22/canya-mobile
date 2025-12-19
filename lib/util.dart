@@ -14,6 +14,7 @@ PreferredSizeWidget createAppBar(
       style: Theme.of(context).textTheme.titleLarge,
     ),
     toolbarHeight: 120.0,
+    centerTitle: true,
     // elevation: 1.0,
     // primary: true,
     // backgroundColor: Theme.of(

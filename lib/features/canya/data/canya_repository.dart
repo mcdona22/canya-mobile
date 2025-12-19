@@ -16,6 +16,7 @@ CanyaRepository canyaRepository(Ref ref) => CanyaRepository(
 
 class CanyaRepository with UiLoggy {
   final tableName = 'canya_event';
+  final withSlotsView = 'canya_event_with_slots';
 
   CanyaRepository({required this.client});
 
@@ -37,7 +38,7 @@ class CanyaRepository with UiLoggy {
 
   Stream<CanyaEvent> fetchById(String id) {
     final Stream<CanyaEvent> response = client
-        .from(tableName)
+        .from(withSlotsView)
         .stream(primaryKey: ['id'])
         .eq('id', id)
         .map((data) {
@@ -46,6 +47,7 @@ class CanyaRepository with UiLoggy {
           }
           return CanyaEvent.fromMap(data.first);
         });
+    loggy.info('With the slots', response);
 
     return response;
   }

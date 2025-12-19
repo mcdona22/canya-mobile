@@ -1,5 +1,6 @@
 import 'package:canya/common/dimensions.dart';
 import 'package:canya/common/presentation/async_value_widget.dart';
+import 'package:canya/common/presentation/centred_constrained_widget.dart';
 import 'package:canya/features/canya/data/canya_event.dart';
 import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:canya/util.dart';
@@ -48,32 +49,54 @@ class CanyaDetailView extends HookConsumerWidget
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
 
-    return Card(
-      child: SizedBox(
-        width: double.infinity,
+    return CentredConstrainedWidget(
+      child: Column(
+        children: [
+          Card(
+            child: SizedBox(
+              width: double.infinity,
 
-        child: Padding(
-          padding: const EdgeInsets.all(18.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            spacing: kListSpacingMedium,
-            children: [
-              Text(
-                canya.name,
-                style: theme.textTheme.displayMedium
-                    ?.copyWith(letterSpacing: 3.0),
-                textAlign: TextAlign.center,
-              ),
-              if (canya.description != null)
-                Text(
-                  canya.description!,
-                  textAlign: TextAlign.center,
+              child: Padding(
+                padding: const EdgeInsets.all(18.0),
+                child: Column(
+                  mainAxisAlignment:
+                      MainAxisAlignment.start,
+                  crossAxisAlignment:
+                      CrossAxisAlignment.center,
+                  spacing: kListSpacingMedium,
+                  children: [
+                    Text(
+                      canya.name,
+                      style: theme.textTheme.displayMedium
+                          ?.copyWith(letterSpacing: 3.0),
+                      textAlign: TextAlign.center,
+                    ),
+                    if (canya.description != null)
+                      Text(
+                        canya.description!,
+                        textAlign: TextAlign.center,
+                      ),
+                    // Divider(endIndent: 20.0, indent: 20.0),
+                  ],
                 ),
-              // Divider(endIndent: 20.0, indent: 20.0),
-            ],
+              ),
+            ),
           ),
-        ),
+          Text(
+            'Available Slots',
+            style: theme.textTheme.headlineMedium,
+          ),
+          if (canya.slots.isNotEmpty)
+            Text(
+              'We have some slots - in fact there are '
+              '${canya.slots.length}',
+            ),
+          if (canya.slots.isEmpty)
+            Text(
+              'The creator of this event has yet to '
+              'publish some slots',
+            ),
+        ],
       ),
     );
   }
