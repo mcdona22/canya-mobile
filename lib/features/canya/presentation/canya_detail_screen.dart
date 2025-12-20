@@ -6,7 +6,10 @@ import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:loggy/loggy.dart';
+
+import '../data/slot.dart';
 
 class CanyaDetailScreen extends HookConsumerWidget
     with UiLoggy {
@@ -104,8 +107,8 @@ class CanyaDetailView extends HookConsumerWidget
                     ),
                   if (canya.slots.isNotEmpty)
                     ...List.generate(
-                      50,
-                      (i) => Text('Item $i'),
+                      canya.slots.length,
+                      (i) => SlotTile(slot: canya.slots[i]),
                     ),
                 ],
               ),
@@ -113,6 +116,33 @@ class CanyaDetailView extends HookConsumerWidget
           ),
         ],
       ),
+    );
+  }
+}
+
+class SlotTile extends HookConsumerWidget with UiLoggy {
+  final Slot slot;
+
+  const SlotTile({required this.slot, super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateFormat = 'dd-MMM-yy @ kk:mm';
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      spacing: 10.0,
+      children: [
+        Text('${DateFormat(dateFormat).format(slot.when)}'),
+        if (slot.comments.isNotEmpty)
+          // TODO either add a tooltip, make it
+          //  responsive to mobiles or both
+          Expanded(
+            child: Text(
+              slot.comments,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+      ],
     );
   }
 }
