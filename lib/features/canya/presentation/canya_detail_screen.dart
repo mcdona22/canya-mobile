@@ -25,14 +25,7 @@ class CanyaDetailScreen extends HookConsumerWidget
         child: AsyncValueWidget<CanyaEvent>(
           value: canya,
           // data: (c) => CanyaDetailView(canya: c),
-          data: (c) => SingleChildScrollView(
-            child: Column(
-              children: [
-                // Text(c.name),
-                CanyaDetailView(canya: c),
-              ],
-            ),
-          ),
+          data: (c) => CanyaDetailView(canya: c),
         ),
       ),
     );
@@ -52,50 +45,72 @@ class CanyaDetailView extends HookConsumerWidget
     return CentredConstrainedWidget(
       child: Column(
         children: [
-          Card(
-            child: SizedBox(
-              width: double.infinity,
+          SizedBox(
+            height: 180.0,
+            child: Card(
+              child: SizedBox(
+                width: double.infinity,
 
-              child: Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment.start,
-                  crossAxisAlignment:
-                      CrossAxisAlignment.center,
-                  spacing: kListSpacingMedium,
-                  children: [
-                    Text(
-                      canya.name,
-                      style: theme.textTheme.displayMedium
-                          ?.copyWith(letterSpacing: 3.0),
-                      textAlign: TextAlign.center,
-                    ),
-                    if (canya.description != null)
+                child: Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Column(
+                    mainAxisAlignment:
+                        MainAxisAlignment.start,
+                    crossAxisAlignment:
+                        CrossAxisAlignment.center,
+                    spacing: kListSpacingMedium,
+                    children: [
                       Text(
-                        canya.description!,
+                        canya.name,
+                        style: theme.textTheme.displayMedium
+                            ?.copyWith(letterSpacing: 3.0),
                         textAlign: TextAlign.center,
                       ),
-                    // Divider(endIndent: 20.0, indent: 20.0),
-                  ],
+                      if (canya.description != null)
+                        Expanded(
+                          child: Text(
+                            canya.description!,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      // Divider(endIndent: 20.0, indent: 20.0),
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-          Text(
-            'Available Slots',
-            style: theme.textTheme.headlineMedium,
+
+          // Text(
+          //   'Available Slots',
+          //   style: theme.textTheme.headlineMedium,
+          // ),
+
+          // if (canya.slots.isEmpty)
+          //   Text(
+          //     'The creator of this event has yet to '
+          //     'publish some slots',
+          //   ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  if (canya.slots.isEmpty)
+                    Text(
+                      'The creator of this event has yet to '
+                      'publish some slots',
+                      textAlign: TextAlign.center,
+                    ),
+                  if (canya.slots.isNotEmpty)
+                    ...List.generate(
+                      50,
+                      (i) => Text('Item $i'),
+                    ),
+                ],
+              ),
+            ),
           ),
-          if (canya.slots.isNotEmpty)
-            Text(
-              'We have some slots - in fact there are '
-              '${canya.slots.length}',
-            ),
-          if (canya.slots.isEmpty)
-            Text(
-              'The creator of this event has yet to '
-              'publish some slots',
-            ),
         ],
       ),
     );
