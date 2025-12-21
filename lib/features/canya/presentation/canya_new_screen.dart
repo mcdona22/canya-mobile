@@ -9,10 +9,10 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_validator/form_validator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:loggy/loggy.dart';
 
 import 'canya_detail_screen.dart';
+import 'create/skot_edit_form.dart';
 
 class CanyaNewScreen extends HookConsumerWidget
     with UiLoggy {
@@ -43,7 +43,7 @@ class CanyaEventForm extends HookConsumerWidget
       canyaFormControllerProvider.notifier,
     );
     final formKey = useMemoized(
-      () => GlobalKey<FormState>(),
+          () => GlobalKey<FormState>(),
     );
     return Form(
       key: formKey,
@@ -79,34 +79,37 @@ class CanyaEventForm extends HookConsumerWidget
           state.isLoading
               ? CircularProgressIndicator()
               : ElevatedButton(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      controller.onSubmit(
-                        ((message) => _onSuccess(
-                          context,
-                          message ?? '',
-                        )),
-                        ((message) => _onFailure(
-                          context,
-                          message ?? '',
-                        )),
-                      );
-                    } else {
-                      loggy.debug('invalid');
-                    }
-                  },
-                  child: Text('Save Canya'),
-                ),
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                controller.onSubmit(
+                  ((message) =>
+                      _onSuccess(
+                        context,
+                        message ?? '',
+                      )),
+                  ((message) =>
+                      _onFailure(
+                        context,
+                        message ?? '',
+                      )),
+                );
+              } else {
+                loggy.debug('invalid');
+              }
+            },
+            child: Text('Save Canya'),
+          ),
 
           if (controller.currentSlots.isEmpty)
             Text('Add some slots for your event'),
-          SlotEditForm(),
+          SlotForm(),
           if (controller.currentSlots.isNotEmpty)
             ...List.generate(
               controller.currentSlots.length,
-              (i) => SlotTile(
-                slot: controller.currentSlots[i],
-              ),
+                  (i) =>
+                  SlotTile(
+                    slot: controller.currentSlots[i],
+                  ),
             ),
         ],
       ),
@@ -122,105 +125,4 @@ class CanyaEventForm extends HookConsumerWidget
     loggy.debug(msg);
     // context.goNamed(AppRoute.canya.name);
   }
-}
-
-class SlotEditForm extends HookConsumerWidget with UiLoggy {
-  const SlotEditForm({super.key});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final whenTimeController = useTextEditingController();
-    final whenDateController = useTextEditingController();
-    final commentController = useTextEditingController();
-    final formKey = useMemoized(
-      () => GlobalKey<FormState>(),
-    );
-
-    return Form(
-      key: formKey,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Expanded(
-            child: Column(
-              spacing: kListSpacingMedium,
-              children: [
-                Row(
-                  spacing: kListSpacingMedium,
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: whenDateController,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          labelText: 'Date',
-                          hint: Text('Enter the date'),
-                          border: textInputBorder,
-                          prefixIcon: IconButton(
-                            onPressed: () async {
-                              final date =
-                                  await _onPickDate(
-                                    context,
-                                  );
-                              if (date != null) {
-                                whenDateController.text =
-                                    DateFormat(
-                                      'dd-MMM-yyyy',
-                                    ).format(date);
-                                loggy.debug(
-                                  'selected date: ',
-                                  date,
-                                );
-                              }
-                            },
-
-                            icon: Icon(
-                              Icons.calendar_month,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        controller: whenTimeController,
-                        readOnly: true,
-                        decoration: InputDecoration(
-                          labelText: 'Time',
-                          hint: Text('time, if needed'),
-                          border: textInputBorder,
-                          prefixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(Icons.watch),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-
-                TextFormField(
-                  controller: commentController,
-                  decoration: InputDecoration(
-                    labelText: 'Comment',
-                    hint: Text('only if needed'),
-                    border: textInputBorder,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future<DateTime?> _onPickDate(BuildContext context) =>
-      showDatePicker(
-        context: context,
-        firstDate: DateTime.now(),
-        lastDate: DateTime.now().add(
-          Duration(days: 365 * 2),
-        ),
-      );
 }
