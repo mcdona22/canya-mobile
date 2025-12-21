@@ -58,7 +58,7 @@ class CanyaRepository with UiLoggy {
       loggy.info('The map being passed is : ', data);
       final response = await client
           .from(tableName)
-          .insert(data)
+          .upsert(data)
           .select()
           .single();
       final canya = CanyaEvent.fromMap(response);
