@@ -1,4 +1,6 @@
 import 'package:canya/common/presentation/dates_util.dart';
+import 'package:canya/features/canya/data/slot.dart'
+    show Slot;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart'
     show showDatePicker, showTimePicker, TimeOfDay;
@@ -57,14 +59,21 @@ class SlotFormController extends _$SlotFormController
     }
   }
 
-  void submit() {
+  Slot submit() {
+    state = AsyncValue.loading();
     loggy.debug(
       'The state is : {whenDate: $whenDate, '
       'whenTime: $whenTime, comment: '
       '${commentTextController.text}',
     );
 
+    final slot = Slot(
+      comments: commentTextController.text ?? '',
+      when: whenDate!,
+    );
     _reset();
+    state = AsyncValue.data(null);
+    return slot;
   }
 
   _reset() {

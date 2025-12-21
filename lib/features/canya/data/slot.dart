@@ -21,4 +21,9 @@ class Slot {
       // when: map['when'] as DateTime,
     );
   }
+
+  @override
+  String toString() {
+    return 'Slot{id: $id, comments: $comments, when: $when}';
+  }
 }

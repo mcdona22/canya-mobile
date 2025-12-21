@@ -1,4 +1,5 @@
 import 'package:canya/common/dimensions.dart';
+import 'package:canya/common/presentation/async_value_widget.dart';
 import 'package:canya/common/presentation/form_items.dart';
 import 'package:canya/features/canya/presentation/create/slot_form_controller.dart';
 import 'package:flutter/material.dart';
@@ -88,11 +89,22 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
                       ),
                     ),
 
-                    SizedBox(
-                      width: 50.0,
-                      child: IconButton(
-                        icon: Icon(Icons.save),
-                        onPressed: controller.submit,
+                    AsyncValueWidget(
+                      value: ref.watch(
+                        slotFormControllerProvider,
+                      ),
+                      data: (v) => SizedBox(
+                        width: 50.0,
+                        child: IconButton(
+                          icon: Icon(Icons.save),
+                          onPressed: () {
+                            final slot = controller
+                                .submit();
+                            loggy.debug(
+                              'Created this slot : $slot',
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ],
