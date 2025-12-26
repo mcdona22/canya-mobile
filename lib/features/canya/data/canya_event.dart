@@ -17,7 +17,7 @@ class CanyaEvent {
     return {
       if (id != null) 'id': id,
       'name': name,
-      'description': description,
+      'description': description ?? '',
     };
   }
 
@@ -34,9 +34,9 @@ class CanyaEvent {
     // logInfo('JSON for the CanyaEvent : ', dataMap);
     final slots = (dataMap['slots']) as List? ?? [];
     return CanyaEvent(
-      id: dataMap['id'] as String,
-      name: dataMap['name'] as String,
-      description: dataMap['description'] as String,
+      id: dataMap['id'],
+      name: dataMap['name'] ?? '',
+      description: dataMap['description'] ?? '',
       slots: slots
           .map((json) => Slot.fromMap(json))
           .toList(),
