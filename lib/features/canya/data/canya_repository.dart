@@ -2,6 +2,7 @@ import 'package:canya/common/data/supabase_provider.dart';
 import 'package:loggy/loggy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 import 'canya_event.dart';
 
@@ -53,6 +54,11 @@ class CanyaRepository with UiLoggy {
   }
 
   Future<CanyaEvent> createCanya(CanyaEvent c) async {
+    final id = c.id ?? const Uuid().v4();
+    final entry = CanyaEvent.fromMap({
+      ...c.toMap(),
+      id: id,
+    });
     try {
       final data = c.toTableMap();
       loggy.info('The map being passed is : ', data);
