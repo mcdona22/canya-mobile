@@ -59,6 +59,10 @@ class SlotFormController extends _$SlotFormController
     }
   }
 
+  // todo merge the dates to incorporate time
+  // reset or clear focus
+  // add the slot to the current slots
+  // extend data model to include canya ref
   Slot submit() {
     state = AsyncValue.loading();
     loggy.debug(
