@@ -69,22 +69,6 @@ class CanyaRepository with UiLoggy {
     }
   }
 
-  Stream<CanyaEvent> fetchById(String id) {
-    final Stream<CanyaEvent> response = client
-        .from(withSlotsView)
-        .stream(primaryKey: ['id'])
-        .eq('id', id)
-        .map((data) {
-          if (data.isEmpty) {
-            throw Exception('No Canya with an id of $id');
-          }
-          return CanyaEvent.fromMap(data.first);
-        });
-    loggy.info('With the slots', response);
-
-    return response;
-  }
-
   Future<CanyaEvent> createCanya(CanyaEvent c) async {
     final id = const Uuid().v4();
     final entry = CanyaEvent.fromMap({
@@ -106,10 +90,21 @@ class CanyaRepository with UiLoggy {
       //     .single();
       // final canya = CanyaEvent.fromMap(response.);
       loggy.debug('Created canya locally', entry);
+      _refreshCanyaList();
       return entry;
     } catch (e, stack) {
       loggy.error('Error inserting locally', e);
       rethrow;
     }
+  }
+
+  Stream<CanyaEvent> fetchById(String id) {
+    return fetchAll().map((list) {
+      return list.firstWhere(
+        (e) => e.id == id,
+        orElse: () =>
+            throw Exception('Event $id not found'),
+      );
+    });
   }
 }

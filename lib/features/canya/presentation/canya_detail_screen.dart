@@ -105,11 +105,11 @@ class CanyaDetailView extends HookConsumerWidget
                       'publish some slots',
                       textAlign: TextAlign.center,
                     ),
-                  if (canya.slots.isNotEmpty)
-                    ...List.generate(
-                      canya.slots.length,
-                      (i) => SlotTile(slot: canya.slots[i]),
-                    ),
+                  // if (canya.slots.isNotEmpty)
+                  //   ...List.generate(
+                  //     canya.slots.length,
+                  //     (i) => SlotTile(slot: canya.slots[i]),
+                  //   ),
                 ],
               ),
             ),
