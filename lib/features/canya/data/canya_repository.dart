@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:canya/common/data/local_database_provider.dart';
 import 'package:canya/common/data/supabase_provider.dart';
 import 'package:loggy/loggy.dart';
@@ -21,6 +23,8 @@ CanyaRepository canyaRepository(Ref ref) => CanyaRepository(
 class CanyaRepository with UiLoggy {
   final tableName = 'canya_event';
   final withSlotsView = 'canya_event_with_slots';
+  final _canyaStreamController =
+      StreamController<List<CanyaEvent>>.broadcast();
 
   CanyaRepository({
     required this.client,
@@ -31,17 +35,38 @@ class CanyaRepository with UiLoggy {
   final Database localDatabase;
 
   Stream<List<CanyaEvent>> fetchAll() {
-    final response = client
-        .from(tableName)
-        .stream(primaryKey: ['id'])
-        .order('name', ascending: true)
-        .map(
-          (data) => data
-              .map((json) => CanyaEvent.fromMap(json))
-              .toList(),
-        );
+    _refreshCanyaList();
+    return _canyaStreamController.stream;
+    // final response = client
+    //     .from(tableName)
+    //     .stream(primaryKey: ['id'])
+    //     .order('name', ascending: true)
+    //     .map(
+    //       (data) => data
+    //           .map((json) => CanyaEvent.fromMap(json))
+    //           .toList(),
+    //     );
+    //
+    // return response;
+  }
 
-    return response;
+  Future<void> _refreshCanyaList() async {
+    try {
+      final List<Map<String, dynamic>> rows =
+          await localDatabase.query(
+            tableName,
+            orderBy: 'name ASC',
+          );
+      final list = rows
+          .map((json) => CanyaEvent.fromMap(json))
+          .toList();
+      _canyaStreamController.add(list);
+    } catch (e) {
+      loggy.error(
+        "Failed to refresh canya list",
+        e.toString(),
+      );
+    }
   }
 
   Stream<CanyaEvent> fetchById(String id) {
