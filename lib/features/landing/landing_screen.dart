@@ -38,9 +38,9 @@ class LandingScreen extends HookConsumerWidget
                     ),
               ),
               SizedBox.square(
-                dimension: 300.0,
+                dimension: 400.0,
                 child: Image.asset(
-                  'assets/images/canya-logo.png',
+                  'assets/images/logo.png',
                   fit: BoxFit.cover,
                 ),
               ),
