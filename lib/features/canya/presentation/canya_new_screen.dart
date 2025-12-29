@@ -22,10 +22,13 @@ class CanyaNewScreen extends HookConsumerWidget
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: createAppBar(context, 'New CanYa'),
-      body: CentredConstrainedWidget(
-        child: Padding(
-          padding: const EdgeInsets.all(kPaddingSmall),
-          child: CanyaEventForm(),
+      // resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: CentredConstrainedWidget(
+          child: Padding(
+            padding: const EdgeInsets.all(kPaddingSmall),
+            child: CanyaEventForm(),
+          ),
         ),
       ),
     );
@@ -43,7 +46,7 @@ class CanyaEventForm extends HookConsumerWidget
       canyaFormControllerProvider.notifier,
     );
     final formKey = useMemoized(
-          () => GlobalKey<FormState>(),
+      () => GlobalKey<FormState>(),
     );
     return Form(
       key: formKey,
@@ -79,26 +82,24 @@ class CanyaEventForm extends HookConsumerWidget
           state.isLoading
               ? CircularProgressIndicator()
               : ElevatedButton(
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                controller.onSubmit(
-                  ((message) =>
-                      _onSuccess(
-                        context,
-                        message ?? '',
-                      )),
-                  ((message) =>
-                      _onFailure(
-                        context,
-                        message ?? '',
-                      )),
-                );
-              } else {
-                loggy.debug('invalid');
-              }
-            },
-            child: Text('Save Canya'),
-          ),
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      controller.onSubmit(
+                        ((message) => _onSuccess(
+                          context,
+                          message ?? '',
+                        )),
+                        ((message) => _onFailure(
+                          context,
+                          message ?? '',
+                        )),
+                      );
+                    } else {
+                      loggy.debug('invalid');
+                    }
+                  },
+                  child: Text('Save Canya'),
+                ),
 
           if (controller.currentSlots.isEmpty)
             Text('Add some slots for your event'),
@@ -106,10 +107,9 @@ class CanyaEventForm extends HookConsumerWidget
           if (controller.currentSlots.isNotEmpty)
             ...List.generate(
               controller.currentSlots.length,
-                  (i) =>
-                  SlotTile(
-                    slot: controller.currentSlots[i],
-                  ),
+              (i) => SlotTile(
+                slot: controller.currentSlots[i],
+              ),
             ),
         ],
       ),

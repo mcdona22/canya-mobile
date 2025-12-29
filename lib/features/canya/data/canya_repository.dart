@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:canya/common/data/local_database_provider.dart';
-import 'package:canya/common/data/supabase_provider.dart';
 import 'package:loggy/loggy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
 import 'canya_event.dart';
@@ -16,7 +14,7 @@ typedef JsonList = List<Map<String, dynamic>>;
 
 @Riverpod()
 CanyaRepository canyaRepository(Ref ref) => CanyaRepository(
-  client: ref.watch(supabaseClientProvider),
+  // client: ref.watch(supabaseClientProvider),
   localDatabase: ref.watch(localDatabaseProvider),
 );
 
@@ -27,11 +25,11 @@ class CanyaRepository with UiLoggy {
       StreamController<List<CanyaEvent>>.broadcast();
 
   CanyaRepository({
-    required this.client,
+    // required this.client,
     required this.localDatabase,
   });
 
-  final SupabaseClient client;
+  // final SupabaseClient client;
   final Database localDatabase;
 
   Stream<List<CanyaEvent>> fetchAll() {
@@ -55,7 +53,7 @@ class CanyaRepository with UiLoggy {
       final List<Map<String, dynamic>> rows =
           await localDatabase.query(
             tableName,
-            orderBy: 'name ASC',
+            orderBy: 'name COLLATE NOCASE ASC',
           );
       final list = rows
           .map((json) => CanyaEvent.fromMap(json))
