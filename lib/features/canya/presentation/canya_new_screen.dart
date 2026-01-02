@@ -11,6 +11,9 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
+import 'canya_detail_screen.dart';
+import 'create/skot_edit_form.dart';
+
 class CanyaNewScreen extends HookConsumerWidget
     with UiLoggy {
   const CanyaNewScreen({super.key});
@@ -19,10 +22,13 @@ class CanyaNewScreen extends HookConsumerWidget
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: createAppBar(context, 'New CanYa'),
-      body: CentredConstrainedWidget(
-        child: Padding(
-          padding: const EdgeInsets.all(kPaddingSmall),
-          child: CanyaEventForm(),
+      // resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: CentredConstrainedWidget(
+          child: Padding(
+            padding: const EdgeInsets.all(kPaddingSmall),
+            child: CanyaEventForm(),
+          ),
         ),
       ),
     );
@@ -92,8 +98,26 @@ class CanyaEventForm extends HookConsumerWidget
                       loggy.debug('invalid');
                     }
                   },
-                  child: Text('Save'),
+                  child: Text('Save Canya'),
                 ),
+
+          if (controller.currentSlots.isEmpty)
+            Text('Add some slots for your event'),
+          // SlotForm(),
+          TextButton(
+            onPressed: () {
+              loggy.info('click');
+              _onSlotAdd(context);
+            },
+            child: Text('add slot'),
+          ),
+          if (controller.currentSlots.isNotEmpty)
+            ...List.generate(
+              controller.currentSlots.length,
+              (i) => SlotTile(
+                slot: controller.currentSlots[i],
+              ),
+            ),
         ],
       ),
     );
@@ -107,5 +131,32 @@ class CanyaEventForm extends HookConsumerWidget
   void _onFailure(BuildContext context, String msg) {
     loggy.debug(msg);
     // context.goNamed(AppRoute.canya.name);
+  }
+
+  Future<void> _onSlotAdd(BuildContext context) async {
+    loggy.info('Lets bottom sheet');
+    final slot = await showModalBottomSheet<dynamic>(
+      context: context,
+      elevation: 3.0,
+      builder: (context) => SizedBox(
+        height: 300.0,
+        child: Column(
+          spacing: kListSpacingMedium,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Create a slot'),
+            Padding(
+              padding: const EdgeInsets.all(kPaddingMedium),
+              child: SlotForm(),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    loggy.info('return val', slot);
+    slot == null
+        ? loggy.info("cancelled")
+        : loggy.info('Accepted');
   }
 }

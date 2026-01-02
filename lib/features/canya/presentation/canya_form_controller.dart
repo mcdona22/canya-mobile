@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:loggy/loggy.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../data/slot.dart';
+
 part 'canya_form_controller.g.dart';
 
 @riverpod
@@ -15,6 +17,16 @@ class CanyaFormController extends _$CanyaFormController
   late CanyaService canyaService;
   final nameTextController = TextEditingController();
   final descTextController = TextEditingController();
+  List<Slot> _slots = [
+    Slot(comments: 'New slot by JRM', when: DateTime.now()),
+  ];
+
+  List<Slot> get currentSlots => List.unmodifiable(_slots);
+
+  void addLot(Slot slot) {
+    _slots.add(slot);
+    ref.notifyListeners();
+  }
 
   @override
   FutureOr<void> build() {
@@ -31,9 +43,10 @@ class CanyaFormController extends _$CanyaFormController
       final ce = CanyaEvent(
         name: nameTextController.text,
         description: descTextController.text,
+        slots: [],
       );
       await canyaService.addCanya(ce);
-      loggy.debug('Created', ce.toMap());
+      // loggy.debug('Created', ce.toMap());
       onSuccess(
         'The Canya for "${ce.name}" has been created',
       );
