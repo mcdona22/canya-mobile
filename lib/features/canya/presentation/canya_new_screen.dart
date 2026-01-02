@@ -103,7 +103,14 @@ class CanyaEventForm extends HookConsumerWidget
 
           if (controller.currentSlots.isEmpty)
             Text('Add some slots for your event'),
-          SlotForm(),
+          // SlotForm(),
+          TextButton(
+            onPressed: () {
+              loggy.info('click');
+              _onSlotAdd(context);
+            },
+            child: Text('add slot'),
+          ),
           if (controller.currentSlots.isNotEmpty)
             ...List.generate(
               controller.currentSlots.length,
@@ -124,5 +131,32 @@ class CanyaEventForm extends HookConsumerWidget
   void _onFailure(BuildContext context, String msg) {
     loggy.debug(msg);
     // context.goNamed(AppRoute.canya.name);
+  }
+
+  Future<void> _onSlotAdd(BuildContext context) async {
+    loggy.info('Lets bottom sheet');
+    final slot = await showModalBottomSheet<dynamic>(
+      context: context,
+      elevation: 3.0,
+      builder: (context) => SizedBox(
+        height: 300.0,
+        child: Column(
+          spacing: kListSpacingMedium,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Create a slot'),
+            Padding(
+              padding: const EdgeInsets.all(kPaddingMedium),
+              child: SlotForm(),
+            ),
+          ],
+        ),
+      ),
+    );
+
+    loggy.info('return val', slot);
+    slot == null
+        ? loggy.info("cancelled")
+        : loggy.info('Accepted');
   }
 }
