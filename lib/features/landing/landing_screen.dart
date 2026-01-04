@@ -48,16 +48,16 @@ class LandingScreen extends HookConsumerWidget
               Column(
                 spacing: 20.0,
                 children: [
-                  SizedBox(
-                    height: kButtonHeight,
-                    width: kButtonWidth,
-                    child: OutlinedButton(
-                      onPressed: () => context.goNamed(
-                        AppRoute.signIn.name,
-                      ),
-                      child: Text('Show Auth Screen'),
-                    ),
-                  ),
+                  // SizedBox(
+                  //   height: kButtonHeight,
+                  //   width: kButtonWidth,
+                  //   child: OutlinedButton(
+                  //     onPressed: () => context.goNamed(
+                  //       AppRoute.signIn.name,
+                  //     ),
+                  //     child: Text('Show Auth Screen'),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: kButtonHeight,
                     width: kButtonWidth,
