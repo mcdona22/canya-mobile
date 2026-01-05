@@ -11,6 +11,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
+import '../data/slot.dart';
 import 'canya_detail_screen.dart';
 import 'create/skot_edit_form.dart';
 
@@ -106,8 +107,7 @@ class CanyaEventForm extends HookConsumerWidget
           // SlotForm(),
           TextButton(
             onPressed: () {
-              loggy.info('click');
-              _onSlotAdd(context);
+              _onSlotAdd(context, controller);
             },
             child: Text('add slot'),
           ),
@@ -133,9 +133,11 @@ class CanyaEventForm extends HookConsumerWidget
     // context.goNamed(AppRoute.canya.name);
   }
 
-  Future<void> _onSlotAdd(BuildContext context) async {
-    loggy.info('Lets bottom sheet');
-    final slot = await showModalBottomSheet<dynamic>(
+  Future<void> _onSlotAdd(
+    BuildContext context,
+    CanyaFormController controller,
+  ) async {
+    final slot = await showModalBottomSheet<Slot>(
       context: context,
       elevation: 3.0,
       builder: (context) => SizedBox(
@@ -144,7 +146,12 @@ class CanyaEventForm extends HookConsumerWidget
           spacing: kListSpacingMedium,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Create a slot'),
+            Text(
+              'Create a Slot',
+              style: Theme.of(
+                context,
+              ).textTheme.titleMedium,
+            ),
             Padding(
               padding: const EdgeInsets.all(kPaddingMedium),
               child: SlotForm(),
@@ -154,9 +161,9 @@ class CanyaEventForm extends HookConsumerWidget
       ),
     );
 
-    loggy.info('return val', slot);
-    slot == null
-        ? loggy.info("cancelled")
-        : loggy.info('Accepted');
+    loggy.debug('return val', slot);
+    slot != null
+        ? controller.addSlot(slot)
+        : loggy.debug('Cancelled');
   }
 }

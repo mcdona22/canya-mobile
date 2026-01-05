@@ -1,6 +1,7 @@
 import 'package:canya/common/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 
 import 'features/theme/theme_toggle_button.dart';
 
@@ -35,3 +36,5 @@ class HomeActionButton extends StatelessWidget {
     );
   }
 }
+
+String createUuid() => Uuid().v4().toString();

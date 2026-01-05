@@ -1,6 +1,7 @@
 import 'package:canya/common/presentation/dates_util.dart';
 import 'package:canya/features/canya/data/slot.dart'
     show Slot;
+import 'package:canya/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart'
     show showDatePicker, showTimePicker, TimeOfDay;
@@ -52,17 +53,17 @@ class SlotFormController extends _$SlotFormController
       initialTime: TimeOfDay(hour: 9, minute: 0),
     );
 
+    loggy.debug('onPickTime', time);
+
     if (time != null) {
+      loggy.info('appending the time');
       whenTime = DateTime(0, 1, 1, time.hour, time.minute);
+      loggy.info('Result', whenTime);
       whenTimeTextController.text = timeOnlyFormatter
           .format(whenTime!);
     }
   }
 
-  // todo merge the dates to incorporate time
-  // reset or clear focus
-  // add the slot to the current slots
-  // extend data model to include canya ref
   Slot submit() {
     state = AsyncValue.loading();
     loggy.debug(
@@ -71,7 +72,21 @@ class SlotFormController extends _$SlotFormController
       '${commentTextController.text}',
     );
 
+    if (whenTime != null) {
+      whenDate = DateTime(
+        whenDate!.year,
+        whenDate!.month,
+        whenDate!.day,
+        whenTime!.hour,
+        whenTime!.minute,
+        0,
+        0,
+        0,
+      );
+    }
+
     final slot = Slot(
+      id: createUuid(),
       comments: commentTextController.text ?? '',
       when: whenDate!,
     );

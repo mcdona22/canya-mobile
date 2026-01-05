@@ -17,13 +17,14 @@ class CanyaFormController extends _$CanyaFormController
   late CanyaService canyaService;
   final nameTextController = TextEditingController();
   final descTextController = TextEditingController();
-  List<Slot> _slots = [
+  final List<Slot> _slots = [
     Slot(comments: 'New slot by JRM', when: DateTime.now()),
   ];
 
   List<Slot> get currentSlots => List.unmodifiable(_slots);
 
-  void addLot(Slot slot) {
+  void addSlot(Slot slot) {
+    loggy.debug('Adding slot to list', slot);
     _slots.add(slot);
     ref.notifyListeners();
   }

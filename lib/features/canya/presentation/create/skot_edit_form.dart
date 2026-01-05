@@ -103,6 +103,7 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
                             loggy.debug(
                               'Created this slot : $slot',
                             );
+                            Navigator.of(context).pop(slot);
                           },
                         ),
                       ),

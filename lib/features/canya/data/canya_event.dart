@@ -37,9 +37,10 @@ class CanyaEvent {
       id: dataMap['id'],
       name: dataMap['name'] ?? '',
       description: dataMap['description'] ?? '',
-      slots: slots
-          .map((json) => Slot.fromMap(json))
-          .toList(),
+      slots: [],
+      // slots: slots
+      //     .map((json) => Slot.fromMap(json))
+      //     .toList(),
       // slots: (map['slots'] as List?)
       //   ?map( (json) => Slot.fromMap(json))
     );

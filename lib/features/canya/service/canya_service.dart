@@ -20,7 +20,8 @@ class CanyaService with UiLoggy {
 
   CanyaService({required this.canyaRepository});
 
-  Future<CanyaEvent> addCanya(CanyaEvent canya) async {
+  Future<void> addCanya(CanyaEvent canya) async {
+    // return null;
     return await canyaRepository.createCanya(canya);
   }
 }

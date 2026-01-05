@@ -16,7 +16,7 @@ enum AppRoute {
 }
 
 final routerConfig = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/canya/new',
   debugLogDiagnostics: true,
   routes: [
     GoRoute(
