@@ -121,19 +121,4 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
       ),
     );
   }
-
-  // void _onSubmit(
-  //   ValueNotifier<DateTime?> d,
-  //   ValueNotifier<DateTime?> t,
-  //   TextEditingController comments,
-  // ) {
-  //   loggy.debug(
-  //     'The state is {date: ${d.value}, time: ${t.value ?? "null"} '
-  //     'comment: ${comments.text}}',
-  //   );
-  //
-  //   d.value = null;
-  //   t.value = null;
-  //   comments.text = '';
-  // }
 }

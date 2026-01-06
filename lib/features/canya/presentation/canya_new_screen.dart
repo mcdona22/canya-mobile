@@ -12,7 +12,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 
 import '../data/slot.dart';
-import 'canya_detail_screen.dart';
+import 'canya_slot_list.dart';
 import 'create/skot_edit_form.dart';
 
 class CanyaNewScreen extends HookConsumerWidget
@@ -102,22 +102,34 @@ class CanyaEventForm extends HookConsumerWidget
                   child: Text('Save Canya'),
                 ),
 
-          if (controller.currentSlots.isEmpty)
-            Text('Add some slots for your event'),
-          // SlotForm(),
-          TextButton(
-            onPressed: () {
-              _onSlotAdd(context, controller);
-            },
-            child: Text('add slot'),
-          ),
-          if (controller.currentSlots.isNotEmpty)
-            ...List.generate(
-              controller.currentSlots.length,
-              (i) => SlotTile(
-                slot: controller.currentSlots[i],
-              ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: kPaddingMedium,
             ),
+            child: Row(
+              mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+
+              children: [
+                Text(
+                  controller.currentSlots.isNotEmpty
+                      ? 'Event Slots'
+                      : 'Add some slots',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge,
+                ),
+                TextButton(
+                  onPressed: () {
+                    _onSlotAdd(context, controller);
+                  },
+                  child: Text('add slot'),
+                ),
+              ],
+            ),
+          ),
+          CanyaSlotList(slots: controller.currentSlots),
         ],
       ),
     );

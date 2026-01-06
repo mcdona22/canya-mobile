@@ -6,10 +6,7 @@ import 'package:canya/features/canya/service/canya_service.dart';
 import 'package:canya/util.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:loggy/loggy.dart';
-
-import '../data/slot.dart';
 
 class CanyaDetailScreen extends HookConsumerWidget
     with UiLoggy {
@@ -85,62 +82,36 @@ class CanyaDetailView extends HookConsumerWidget
             ),
           ),
 
-          // Text(
-          //   'Available Slots',
-          //   style: theme.textTheme.headlineMedium,
-          // ),
-
-          // if (canya.slots.isEmpty)
-          //   Text(
-          //     'The creator of this event has yet to '
-          //     'publish some slots',
-          //   ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  if (canya.slots.isEmpty)
-                    Text(
-                      'The creator of this event has yet to '
-                      'publish some slots',
-                      textAlign: TextAlign.center,
-                    ),
-                  // if (canya.slots.isNotEmpty)
-                  //   ...List.generate(
-                  //     canya.slots.length,
-                  //     (i) => SlotTile(slot: canya.slots[i]),
-                  //   ),
-                ],
-              ),
-            ),
-          ),
+          Expanded(child: SlotListView(canya: canya)),
         ],
       ),
     );
   }
 }
 
-class SlotTile extends HookConsumerWidget with UiLoggy {
-  final Slot slot;
+class SlotListView extends StatelessWidget {
+  const SlotListView({super.key, required this.canya});
 
-  const SlotTile({required this.slot, super.key});
+  final CanyaEvent canya;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final dateFormat = 'dd-MMM-yy @ kk:mm';
-    return Row(
-      // mainAxisAlignment: MainAxisAlignment.spaceAround,
-      spacing: 10.0,
-      children: [
-        Text(DateFormat(dateFormat).format(slot.when)),
-        if (slot.comments.isNotEmpty)
-          Expanded(
-            child: Text(
-              slot.comments,
-              overflow: TextOverflow.ellipsis,
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          if (canya.slots.isEmpty)
+            Text(
+              'The creator of this event has yet to '
+              'publish some slots',
+              textAlign: TextAlign.center,
             ),
-          ),
-      ],
+          // if (canya.slots.isNotEmpty)
+          //   ...List.generate(
+          //     canya.slots.length,
+          //     (i) => SlotTile(slot: canya.slots[i]),
+          //   ),
+        ],
+      ),
     );
   }
 }
