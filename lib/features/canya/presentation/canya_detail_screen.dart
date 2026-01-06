@@ -132,10 +132,8 @@ class SlotTile extends HookConsumerWidget with UiLoggy {
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       spacing: 10.0,
       children: [
-        Text('${DateFormat(dateFormat).format(slot.when)}'),
+        Text(DateFormat(dateFormat).format(slot.when)),
         if (slot.comments.isNotEmpty)
-          // TODO either add a tooltip, make it
-          //  responsive to mobiles or both
           Expanded(
             child: Text(
               slot.comments,

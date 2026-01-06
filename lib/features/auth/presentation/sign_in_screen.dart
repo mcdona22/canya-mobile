@@ -12,8 +12,8 @@ class SignInScreen extends HookConsumerWidget with UiLoggy {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const imagePath = 'assets/images/authenticate.png';
-    const buttonHeight = 50.0;
-    const buttonWidth = 300.0;
+    // const buttonHeight = 50.0;
+    // const buttonWidth = 300.0;
     const maxWidth = 700.0;
     return Scaffold(
       appBar: createAppBar(context, 'Sign In'),

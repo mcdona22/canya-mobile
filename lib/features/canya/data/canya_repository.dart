@@ -19,8 +19,6 @@ CanyaRepository canyaRepository(Ref ref) => CanyaRepository(
 class CanyaRepository with UiLoggy {
   final tableName = 'canya_event';
   final withSlotsView = 'canya_event_with_slots';
-  final _canyaStreamController =
-      StreamController<List<CanyaEvent>>.broadcast();
 
   CanyaRepository({required this.client});
 
@@ -65,7 +63,7 @@ class CanyaRepository with UiLoggy {
       loggy.debug('insert response', response);
       final canyaId = response[0]['id'];
       loggy.debug('ID is $canyaId');
-    } catch (e, stack) {
+    } catch (e, _) {
       loggy.error('Error inserting', e);
       rethrow;
     }

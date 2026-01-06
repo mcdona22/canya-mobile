@@ -14,7 +14,7 @@ part 'slot_form_controller.g.dart';
 @riverpod
 class SlotFormController extends _$SlotFormController
     with UiLoggy {
-  SlotFormController() {}
+  SlotFormController();
 
   DateTime? whenDate;
   DateTime? whenTime;
@@ -93,7 +93,7 @@ class SlotFormController extends _$SlotFormController
 
     final slot = Slot(
       id: createUuid(),
-      comments: commentTextController.text ?? '',
+      comments: commentTextController.text,
       when: whenDate!,
     );
     _reset();
@@ -101,7 +101,7 @@ class SlotFormController extends _$SlotFormController
     return slot;
   }
 
-  _reset() {
+  void _reset() {
     whenDate = whenTime = null;
     whenDateTextController.text =
         whenTimeTextController.text =

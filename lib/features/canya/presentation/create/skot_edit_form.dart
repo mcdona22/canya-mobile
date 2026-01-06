@@ -12,7 +12,7 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(slotFormControllerProvider);
+    // final state = ref.watch(slotFormControllerProvider);
     final controller = ref.watch(
       slotFormControllerProvider.notifier,
     );
@@ -20,8 +20,8 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
     final formKey = useMemoized(
       () => GlobalKey<FormState>(),
     );
-    final whenTime = useState<DateTime?>(null);
-    final whenDate = useState<DateTime?>(null);
+    // final whenTime = useState<DateTime?>(null);
+    // final whenDate = useState<DateTime?>(null);
 
     return Form(
       key: formKey,
@@ -122,18 +122,18 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
     );
   }
 
-  void _onSubmit(
-    ValueNotifier<DateTime?> d,
-    ValueNotifier<DateTime?> t,
-    TextEditingController comments,
-  ) {
-    loggy.debug(
-      'The state is {date: ${d.value}, time: ${t.value ?? "null"} '
-      'comment: ${comments.text}}',
-    );
-
-    d.value = null;
-    t.value = null;
-    comments.text = '';
-  }
+  // void _onSubmit(
+  //   ValueNotifier<DateTime?> d,
+  //   ValueNotifier<DateTime?> t,
+  //   TextEditingController comments,
+  // ) {
+  //   loggy.debug(
+  //     'The state is {date: ${d.value}, time: ${t.value ?? "null"} '
+  //     'comment: ${comments.text}}',
+  //   );
+  //
+  //   d.value = null;
+  //   t.value = null;
+  //   comments.text = '';
+  // }
 }
