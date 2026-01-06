@@ -93,18 +93,22 @@ class SlotForm extends HookConsumerWidget with UiLoggy {
                       value: ref.watch(
                         slotFormControllerProvider,
                       ),
-                      data: (v) => SizedBox(
+                      data: (valid) => SizedBox(
                         width: 50.0,
                         child: IconButton(
                           icon: Icon(Icons.save),
-                          onPressed: () {
-                            final slot = controller
-                                .submit();
-                            loggy.debug(
-                              'Created this slot : $slot',
-                            );
-                            Navigator.of(context).pop(slot);
-                          },
+                          onPressed: valid
+                              ? () {
+                                  final slot = controller
+                                      .submit();
+                                  loggy.debug(
+                                    'Created this slot : $slot',
+                                  );
+                                  Navigator.of(
+                                    context,
+                                  ).pop(slot);
+                                }
+                              : null,
                         ),
                       ),
                     ),

@@ -30,7 +30,11 @@ class SlotFormController extends _$SlotFormController
   }
 
   @override
-  FutureOr<void> build() {}
+  FutureOr<bool> build() {
+    return _isValid();
+  }
+
+  bool _isValid() => whenDate != null;
 
   Future<void> onPickDate(BuildContext context) async {
     final date = await showDatePicker(
@@ -45,6 +49,8 @@ class SlotFormController extends _$SlotFormController
       whenDateTextController.text = dateOnlyFormatter
           .format(whenDate!);
     }
+
+    state = AsyncValue.data(_isValid());
   }
 
   Future<void> onPickTime(BuildContext context) async {
@@ -91,7 +97,7 @@ class SlotFormController extends _$SlotFormController
       when: whenDate!,
     );
     _reset();
-    state = AsyncValue.data(null);
+    state = AsyncValue.data(_isValid());
     return slot;
   }
 

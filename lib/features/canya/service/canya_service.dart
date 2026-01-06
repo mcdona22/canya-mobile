@@ -20,6 +20,10 @@ class CanyaService with UiLoggy {
 
   CanyaService({required this.canyaRepository});
 
+  // TODO disable add slot when not valid
+  // TODO add the canya slots to the repo or the service
+  // TODO add tile for slot
+  // TODO add edit behaviour (stub) to slot by using its ID
   Future<void> addCanya(CanyaEvent canya) async {
     // return null;
     return await canyaRepository.createCanya(canya);
